@@ -1,6 +1,3 @@
-Ecco il file `README.md` con il codice markdown completo e formattato correttamente, indentato con doppio tab:
-
-<pre>
 # 🔧 Remote-Cmd v3
 
 **Server & Client in C con update/upgrade, autenticazione, syslog e graceful shutdown**
@@ -83,5 +80,4 @@ Ecco il file `README.md` con il codice markdown completo e formattato correttame
 
 ---
 
-© 2025 – Software libero scritto in C, nessuna dipendenza esterna, compatibile con Debian/Linux
-</pre>
+Bocaletto Luca – Software libero scritto in C, nessuna dipendenza esterna, compatibile con Debian/Linux.
