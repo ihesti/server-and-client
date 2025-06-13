@@ -1,3 +1,6 @@
+# Server & Client
+#### Author: Bocaletto Luca
+
 # 🔧 Remote-Cmd v3
 
 **Server & Client in C con update/upgrade, autenticazione, syslog e graceful shutdown**
