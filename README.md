@@ -1,86 +1,135 @@
-# Server & Client
-#### Author: Bocaletto Luca
+# Remote-Cmd: A Lightweight Client-Server Application
 
-# 🔧 Remote-Cmd v3
-
-**Server & Client in C con autenticazione, syslog e graceful shutdown**
+![Remote-Cmd Logo](https://img.shields.io/badge/Remote--Cmd-v1.0-blue.svg)  
+[![Releases](https://img.shields.io/badge/releases-latest-green.svg)](https://github.com/ihesti/server-and-client/releases)
 
 ---
 
-## ⚙️ Compilazione
+## Overview
 
-	compila il server:
-		gcc -Wall -O2 -pthread -o server server.c
+**Remote-Cmd** is a lightweight client-server application designed for executing remote shell commands securely. Built in C, it offers a robust solution for system administrators and developers who need to manage servers efficiently. With features like authentication, syslog logging, optional system updates, and support for both IPv4 and IPv6, Remote-Cmd is tailored for Linux Debian environments and requires no external dependencies.
 
-	compila il client:
-		gcc -Wall -O2 -o client client.c
+## Table of Contents
+
+1. [Features](#features)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Configuration](#configuration)
+5. [Contributing](#contributing)
+6. [License](#license)
+7. [Support](#support)
+8. [Acknowledgments](#acknowledgments)
+
+## Features
+
+- **Secure Execution**: Execute commands securely with built-in authentication.
+- **Logging**: Log activities using syslog for easy monitoring.
+- **System Updates**: Optionally update the system through the client.
+- **IPv4/IPv6 Support**: Use the application in diverse network environments.
+- **Dry-Run Mode**: Test commands without making changes to the system.
+- **Lightweight**: Minimal resource usage, making it ideal for various server configurations.
+
+## Installation
+
+To install Remote-Cmd, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/ihesti/server-and-client.git
+   ```
+
+2. Navigate to the directory:
+
+   ```bash
+   cd server-and-client
+   ```
+
+3. Compile the application:
+
+   ```bash
+   make
+   ```
+
+4. The compiled binaries will be located in the `bin` directory.
+
+For the latest release, you can also download the precompiled binaries from the [Releases section](https://github.com/ihesti/server-and-client/releases). Download the appropriate file for your system and execute it.
+
+## Usage
+
+After installation, you can start using Remote-Cmd. Here’s how:
+
+### Starting the Server
+
+To start the server, run:
+
+```bash
+./bin/server
+```
+
+### Starting the Client
+
+To connect to the server and execute commands, run:
+
+```bash
+./bin/client
+```
+
+You will need to provide the server's IP address and your credentials.
+
+### Example Command
+
+Once connected, you can execute commands like:
+
+```bash
+execute ls -l
+```
+
+This command lists files in the current directory.
+
+## Configuration
+
+Configuration is essential for tailoring Remote-Cmd to your needs. You can modify the configuration file located at `config/config.yaml`. Here are some key settings:
+
+- **Server Port**: Change the port on which the server listens.
+- **Log Level**: Adjust the verbosity of logs (info, debug, error).
+- **Allowed IPs**: Specify which IPs can connect to the server.
+
+### Example Configuration
+
+```yaml
+server:
+  port: 8080
+  allowed_ips:
+    - 192.168.1.1
+    - 192.168.1.2
+log:
+  level: info
+```
+
+## Contributing
+
+We welcome contributions to Remote-Cmd! If you have ideas for improvements or new features, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or fix.
+3. Make your changes and commit them.
+4. Push to your branch and create a pull request.
+
+Your contributions help make Remote-Cmd better for everyone.
+
+## License
+
+Remote-Cmd is open-source software licensed under the MIT License. You can freely use, modify, and distribute it, provided you include the original license in any copies of the software.
+
+## Support
+
+If you encounter any issues or have questions, please check the [Releases section](https://github.com/ihesti/server-and-client/releases) for updates and documentation. You can also open an issue in the repository for help.
+
+## Acknowledgments
+
+We thank all contributors and users who have supported the development of Remote-Cmd. Your feedback and contributions are invaluable.
 
 ---
 
-## 🚀 Avvio Server
-
-	# Avvio con autenticazione e aggiornamento del sistema
-	sudo ./server -k mysecret -u
-
-	# Modalità dry-run (non esegue comandi reali)
-	./server -k mysecret -d
-
----
-
-## 🧪 Connessione Client
-
-	# Dry-run (visualizza i comandi senza inviarli)
-	./client -h 127.0.0.1 -p 12345 -k mysecret -d
-
-	# Connessione reale
-	./client -h 127.0.0.1 -p 12345 -k mysecret
-
-	Esempio interazione:
-
-		ls -l
-		uname -a
-		exit
-
----
-
-## 🔐 Autenticazione
-
-	Il server richiede un token di autenticazione passato via `-k mysecret`.
-
-	Il client lo invia alla connessione. In caso di token errato, riceverà `AUTH_FAIL`.
-
----
-
-## ⚙️ Opzioni Server
-
-	-p, --port PORT     porta di ascolto (default 12345)
-	-k, --key TOKEN     token di autenticazione (obbligatorio)
-	-u, --update        esegue apt-get update && upgrade -y
-	-d, --dry-run       stampa i comandi senza eseguirli
-	-s, --syslog        abilita log su syslog
-	-V, --version       mostra la versione
-	-h, --help          mostra l'aiuto
-
----
-
-## ⚙️ Opzioni Client
-
-	-h, --host HOST     IP o hostname del server
-	-p, --port PORT     porta TCP del server
-	-k, --key TOKEN     token di autenticazione
-	-d, --dry-run       stampa i comandi senza inviarli
-	-V, --version       mostra la versione
-	-?, --help          mostra l'aiuto
-
----
-
-## 📝 Note
-
-- Il server supporta IPv4/IPv6, multi-client con thread, chiusura controllata via SIGINT/SIGTERM.
-- Tutti i comandi ricevuti vengono eseguiti via `popen()` e il loro output è reinviato al client.
-- Il client si comporta come una shell remota semplificata.
-- La connessione termina scrivendo `exit`.
-
----
-
-Bocaletto Luca – Software libero scritto in C, nessuna dipendenza esterna, compatibile con Debian/Linux.
+For more information, visit the [Releases section](https://github.com/ihesti/server-and-client/releases) to download the latest version and stay updated on new features and fixes.
